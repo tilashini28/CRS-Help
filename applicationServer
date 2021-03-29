@@ -1,0 +1,42 @@
+<?php 
+	session_start();
+	$db = mysqli_connect('localhost', 'root', '', 'crs-help');
+
+	// initialize variables
+	$status = "";
+	$remarks = "";
+	$applicationID = 0;
+	$update = false;
+
+	if (isset($_POST['save'])) {
+		$status = $_POST['status'];
+		$remarks = $_POST['remarks'];
+
+		mysqli_query($db, "INSERT INTO application (status, remarks) VALUES ('$status', '$remarks')"); 
+		$_SESSION['message'] = "Application saved"; 
+		header('location: appTable.php');
+	}
+
+
+	if (isset($_POST['update'])) {
+		$applicationID = $_POST['applicationID'];
+		$status = $_POST['status'];
+		$remarks = $_POST['remarks'];
+
+		mysqli_query($db, "UPDATE application SET status='$status', remarks='$remarks' WHERE applicationID=$applicationID");
+		$_SESSION['message'] = "Application updated!"; 
+		header('location: appTable.php');
+	}
+
+if (isset($_GET['del'])) {
+	$applicationID = $_GET['del'];
+	mysqli_query($db, "DELETE FROM application WHERE applicationID=$applicationID");
+	$_SESSION['message'] = "Application deleted!"; 
+	header('location: appTable.php');
+}
+
+
+	$results = mysqli_query($db, "SELECT * FROM application");
+
+
+?>
