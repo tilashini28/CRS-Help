@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Manage Application</title>
+	 <link rel="shortcut icon" type="image/x-icon" href="moneyplant.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FREEHTML5.CO" />
+
+  <!-- 
+	//////////////////////////////////////////////////////
+
+	FREE HTML5 TEMPLATE 
+	DESIGNED & DEVELOPED by FREEHTML5.CO
+		
+	Website: 		http://freehtml5.co/
+	Email: 			info@freehtml5.co
+	Twitter: 		http://twitter.com/fh5co
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'> -->
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<!-- Superfish -->
+	<link rel="stylesheet" href="css/superfish.css">
+
+	<link rel="stylesheet" href="css/style.css">
+
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<style>
+	
+	</style>
+	<body>
+		<div id="fh5co-wrapper">
+		<div id="fh5co-page">
+		<div class="header-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-sm-6 text-left fh5co-link">
+						<a href="#">FAQ</a>
+						<a href="#">Forum</a>
+						<a href="#">Contact</a>
+					</div>
+					<div class="col-md-6 col-sm-6 text-right fh5co-social">
+						<a href="#" class="grow"><i class="icon-facebook2"></i></a>
+						<a href="#" class="grow"><i class="icon-twitter2"></i></a>
+						<a href="#" class="grow"><i class="icon-instagram2"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<header id="fh5co-header-section" class="sticky-banner">
+			<div class="container">
+				<div class="nav-header">
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+					 <img src="moneyplant.png" alt="" height="50px" width="50px">CRS-HELP</img>
+					<!-- START #fh5co-menu-wrap -->
+					<nav id="fh5co-menu-wrap" role="navigation">
+						<ul class="sf-menu" id="fh5co-primary-menu">
+							<li>
+								<a href="index.html">Home</a>
+							</li>
+							
+							<li>
+								<a href="#" class="fh5co-sub-ddown">Projects</a>
+								 <ul class="fh5co-sub-menu">
+								 	<li><a href="#">Water World</a></li>
+								 	
+								</ul>
+							</li>
+							<li class="active"><a href="about.html">About</a></li>
+						<li> <?php   
+								if (!isset($_SESSION['username'])) {
+								?>  <a href="recyclerLogin.php";</a> 
+																
+								<?php } else 
+								if (isset($_SESSION['username'])) { 
+								?>     
+								<a href="profile.php?user=<?php echo $_SESSION['username'] ?>" title="View My Profile"><?php echo $_SESSION['username'] ?></a><li> |<li> <a href="staffLogout.php">Logout</a>       
+								<?php }  
+								?>   
+							
+							  <li> 
+									<li><?php 
+									
+									echo "<a href='StaffLogin.php'> logout</a>";
+									?></li>
+
+                            </li>
+								
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header> 
+ 
+ 
+
+
+<?php 
+include('appserver.php');
+	if (isset($_GET['edit'])) {
+		$applicationID = $_GET['edit'];
+		$update = true;
+		$record = mysqli_query($db, "SELECT * FROM application WHERE applicationID=$applicationID");
+
+		if (count($record) == 1 ) {
+			$n = mysqli_fetch_array($record);
+			//$applicationID = $n['applicationID'];
+			$status = $n['status'];
+			$remarks = $n['remarks'];
+		}
+
+	}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>APPLICATION</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<style>
+body {
+    font-size: 19px;
+}
+table{
+    width: 50%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    text-align: left;
+	text-color : orange;
+}
+tr {
+    border-bottom: 1px solid #cbcbcb;
+}
+th, td{
+    border: none;
+    height: 30px;
+    padding: 2px;
+	
+}
+tr:hover {
+    background: #F5F5F5;
+}
+
+form {
+    width: 45%;
+    margin: 50px auto;
+    text-align: left;
+    padding: 20px; 
+    border: 1px solid #bbbbbb; 
+    border-radius: 5px;
+}
+
+.input-group {
+    margin: 10px 0px 10px 0px;
+}
+.input-group label {
+    display: block;
+    text-align: left;
+    margin: 3px;
+}
+.input-group input {
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+.btn {
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #FF6400;
+    border: none;
+    border-radius: 5px;
+}
+.edit_btn {
+    text-decoration: none;
+    padding: 2px 5px;
+    background: #2E8B57;
+    color: white;
+    border-radius: 3px;
+}
+
+.del_btn {
+    text-decoration: none;
+    padding: 2px 5px;
+    color: white;
+    border-radius: 3px;
+    background: #800000;
+}
+.msg {
+    margin: 30px auto; 
+    padding: 10px; 
+    border-radius: 5px; 
+    color: #3c763d; 
+    background: #dff0d8; 
+    border: 1px solid #3c763d;
+    width: 50%;
+    text-align: center;
+}
+</style>
+<body>
+	<?php if (isset($_SESSION['message'])): ?>
+		<div class="msg">
+			<?php 
+				echo $_SESSION['message']; 
+				unset($_SESSION['message']);
+			?>
+		</div>
+	<?php endif ?>
+
+<?php $results = mysqli_query($db, "SELECT * FROM application"); ?>
+
+<table>
+	<thead>
+		<tr>
+			<th>applicationID</th>
+			<th>applicationDate</th>
+			<th>Status</th>
+			<th>Remarks</th>
+			<th>Username</th>
+			<th>tripID</th>
+			
+			<th colspan="2">Action</th>
+		</tr>
+	</thead>
+	
+	<?php while ($row = mysqli_fetch_array($results)) { ?>
+		<tr>
+			<td><?php echo $row['applicationID']; ?></td>
+			<td><?php echo $row['applicationDate']; ?></td>
+			<td><?php echo $row['status']; ?></td>
+			<td><?php echo $row['remarks']; ?></td>
+			<td><?php echo $row['username']; ?></td>
+			<td><?php echo $row['tripID']; ?></td>
+			<td>
+				<a href="appTable.php?edit=<?php echo $row['applicationID']; ?>" class="edit_btn" >Edit</a>
+			</td>
+			<td>
+				<a href="appserver.php?del=<?php echo $row['applicationID']; ?>" class="del_btn">Delete</a>
+			</td>
+		</tr>
+	<?php } ?>
+</table>
+	
+
+
+<form method="post" action="appserver.php" >
+
+	<input type="hidden" name="applicationID" value="<?php echo $applicationID; ?>">
+
+	<div class="input-group">
+		<label>Status</label>
+		<input type="text" name="status" value="<?php echo $status; ?>">
+	</div>
+	<div class="input-group">
+		<label>Remarks</label>
+		<input type="text" name="remarks" value="<?php echo $remarks; ?>">
+	</div>
+	<div class="input-group">
+
+		<?php if ($update == true): ?>
+			<button class="btn" type="submit" name="update" style="background: #556B2F;" >update</button>
+		<?php else: ?>
+			<button class="btn" type="submit" name="save" >Save</button>
+		<?php endif ?>
+	</div>
+</form>
+</body>
+</html>
